@@ -26,8 +26,8 @@ var (
 
 // Forking config.
 var addressFormat = "^Ze([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})$"
-var divisor float64 = 100 // This is 100 for Ztc
-var transactionFee = 10 // This is 10 for Ztc
+var divisor float64 = 100 // This is 100 for TRTL
+var transactionFee = 10 // This is 10 for TRTL
 
 func init() {
 	var err error
@@ -129,10 +129,10 @@ func getStatus(res http.ResponseWriter, req *http.Request, p httprouter.Params) 
 		address,
 	)
 	json.NewDecoder(walletdResponse).Decode(&temp)
-	Ztc := temp["result"].(map[string]interface{})["availableBalance"].(float64) / divisor
-	temp["result"].(map[string]interface{})["availableBalance"] = Ztc
-	Ztc = temp["result"].(map[string]interface{})["lockedAmount"].(float64)
-	temp["result"].(map[string]interface{})["lockedAmount"] = Ztc / divisor
+	trtl := temp["result"].(map[string]interface{})["availableBalance"].(float64) / divisor
+	temp["result"].(map[string]interface{})["availableBalance"] = trtl
+	trtl = temp["result"].(map[string]interface{})["lockedAmount"].(float64)
+	temp["result"].(map[string]interface{})["lockedAmount"] = trtl / divisor
 
 	response.Data["balance"] = temp["result"]
 	walletdResponse = walletd.GetStatus(
